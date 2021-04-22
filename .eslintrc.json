@@ -13,6 +13,8 @@
         "no-tabs": ["error", { "allowIndentationTabs": true }],
         "indent": ["error", "tab"],
         "no-iterator": "off",
-        "no-restricted-syntax": "off"
+        "no-restricted-syntax": "off",
+        "import/prefer-default-export": "off",
+        "import/extensions": "off"
     }
 }
