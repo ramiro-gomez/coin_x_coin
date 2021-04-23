@@ -156,11 +156,10 @@ article{
 
 .card {
     width: 21.875rem;
-    height: 3.125rem;
+    min-height: 3.125rem;
     border-radius: 0.5625rem;
     box-shadow: 0 0.25rem 0.25rem rgba(70, 70, 70, 0.25);
     margin-top: 1rem;
-
     display: flex;
     align-items: center;
 }
@@ -173,40 +172,41 @@ article{
     margin-top: 0.375rem;
     margin-left: 0.5rem;
 }
-.card div{
+.card-name{
     display: flex;
     flex-direction: column;
     margin-left: 0.5rem;
 }
-.card div h2 {
-    font-size: 1rem;
+.card-name h2 {
+    font-size: 0.9375rem;
     font-weight: bold;
     color: var(--gray-1);
 }
-.card div p {
+.card-name p {
     font-size: 0.75rem;
     font-weight: bold;
     color: var(--gray-2);
 }
-.card-sub-text{
-    font-size: 0.8125rem;
+.card-value {
+    align-self: center;
+    margin-left: auto;
+    margin-right: 0.5rem;
+    text-align: right;
+}
+.card-value p{
+    font-size: 0.75rem;
     font-weight: 500;
     color: var(--gray-3);
-    align-self: flex-end;
-    margin-bottom: 0.1875rem;
-    margin-left: 2.3125rem;
 }
-.card p span{
+.card-value p span{
     font-size: 0.5625rem;
 }
-.card h3{
-    width: 8.4375rem;
+.card-value h3{
     font-size: 1.1875rem;
     font-weight: 500;
-    text-align: right;
     color: var(--gray-4);
 }
-.card h3 span{
+.card-value h3 span{
     font-size: 0.875rem;
     color: var(--gray-5);
 }
