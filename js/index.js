@@ -4,10 +4,17 @@ import { RequestHandler } from './request_handler.js';
 const UI = new UserInterface();
 const handler = new RequestHandler();
 const currenciesList = {};
-let baseCurrency = 'ARS';
+let baseCurrency = 'AED';
 
 function valueToBase(value) {
-	return (1 / parseFloat(value)).toFixed(2).toString();
+	let valConverted = 1 / parseFloat(value);
+	if (valConverted < 1) {
+		//  Return the first non-zero decimal and rounded it
+		valConverted = valConverted.toFixed(1 - Math.floor(Math.log(valConverted) / Math.log(100)));
+	} else {
+		valConverted = valConverted.toFixed(2);
+	}
+	return parseFloat(valConverted);
 }
 
 Promise.all([
