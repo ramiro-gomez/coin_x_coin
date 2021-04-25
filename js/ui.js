@@ -1,10 +1,10 @@
 export class UserInterface {
-	showCards(allCurrencies, base) {
-		this.cardsArray = allCurrencies;
+	showCards(currenciesList, base) {
+		this.cardsArray = currenciesList;
 		this.base = base;
 		const documentFragment = new DocumentFragment();
 		const middleElement = document.querySelector('.middle-container');
-		for (const currency of Object.keys(allCurrencies)) {
+		for (const currency of Object.keys(currenciesList)) {
 			const cardDiv = document.createElement('div');
 			cardDiv.classList.add('card');
 			cardDiv.innerHTML = `
@@ -12,12 +12,12 @@ export class UserInterface {
                 <i class="fas fa-thumbtack"></i>
             </a>
             <div class="card-name">
-                <h2>${allCurrencies[currency].id}</h2>
-                <p>${allCurrencies[currency].name}</p>
+                <h2>${currenciesList[currency].id}</h2>
+                <p>${currenciesList[currency].name}</p>
             </div>
             <div class="card-value">
-                <p>1<span>${allCurrencies[currency].id}</span> = </p>
-                <h3>${allCurrencies[currency].value}<span>${base}</span></h3>
+                <p>1<span>${currenciesList[currency].id}</span> = </p>
+                <h3>${currenciesList[currency].value}<span>${base}</span></h3>
             </div>
 			`;
 			documentFragment.appendChild(cardDiv);
@@ -25,27 +25,27 @@ export class UserInterface {
 		middleElement.appendChild(documentFragment);
 	}
 
-	updateCards(allCurrencies, base) {
-		this.allCurrencies = allCurrencies;
+	updateCardsExchanges(exchanges, base) {
+		this.allCurrencies = exchanges;
 		const cards = document.querySelectorAll('.middle-container div.card');
-		cards.forEach((currentValue) => {
-			const id = currentValue.querySelector('.card-name h2').innerHTML;
-			currentValue.querySelector('.card-value').innerHTML = `
+		cards.forEach((cardDiv) => {
+			const id = cardDiv.querySelector('.card-name h2').innerHTML;
+			cardDiv.querySelector('.card-value').innerHTML = `
 			<p>1<span>${id}</span> = </p>
-			<h3>${allCurrencies[id].value}<span>${base}</span></h3>
+			<h3>${exchanges[id]}<span>${base}</span></h3>
 			`;
 		});
 	}
 
-	showBaseOptions(allCurrencies) {
-		this.allCurrencies = allCurrencies;
+	showBaseOptions(currenciesList) {
+		this.allCurrencies = currenciesList;
 		const documentFragment = new DocumentFragment();
 		const selectEelement = document.querySelector('div.base-bar select');
 
-		for (const currency of Object.keys(allCurrencies)) {
+		for (const currency of Object.keys(currenciesList)) {
 			const option = document.createElement('option');
-			option.value = allCurrencies[currency].id;
-			option.innerHTML = allCurrencies[currency].id;
+			option.value = currenciesList[currency].id;
+			option.innerHTML = currenciesList[currency].id;
 			documentFragment.appendChild(option);
 		}
 		selectEelement.appendChild(documentFragment);
