@@ -13,7 +13,9 @@ export class UserInterface {
             </a>
             <div class="card-name">
                 <h2>${currenciesList[currency].id}</h2>
-                <p>${currenciesList[currency].name}</p>
+				<div>
+					<p>${currenciesList[currency].name}</p>
+				</div>
             </div>
             <div class="card-value">
                 <p>1<span>${currenciesList[currency].id}</span> = </p>
