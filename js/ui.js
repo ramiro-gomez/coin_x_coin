@@ -39,17 +39,30 @@ export class UserInterface {
 		});
 	}
 
-	showBaseOptions(currenciesList) {
+	showOptions(currenciesList, defaultOption) {
 		this.allCurrencies = currenciesList;
-		const documentFragment = new DocumentFragment();
-		const selectEelement = document.querySelector('div.base-bar select');
+		const selectBase = document.querySelector('div.base-bar select');
+		const selectExchange = document.querySelectorAll('div.exchange-box select');
+		const docFragBase = new DocumentFragment();
 
 		for (const currency of Object.keys(currenciesList)) {
 			const option = document.createElement('option');
+			if (currenciesList[currency].id === defaultOption) {
+				option.selected = true;
+			}
 			option.value = currenciesList[currency].id;
 			option.innerHTML = currenciesList[currency].id;
-			documentFragment.appendChild(option);
+			docFragBase.appendChild(option);
 		}
-		selectEelement.appendChild(documentFragment);
+
+		const docFragExchange1 = docFragBase.cloneNode(true);
+		const docFragExchange2 = docFragBase.cloneNode(true);
+
+		docFragExchange1.querySelector(`option[value=${defaultOption}]`).selected = true;
+		docFragExchange2.querySelector('option[value=USD]').selected = true;
+
+		selectBase.appendChild(docFragBase);
+		selectExchange[0].appendChild(docFragExchange1);
+		selectExchange[1].appendChild(docFragExchange2);
 	}
 }
