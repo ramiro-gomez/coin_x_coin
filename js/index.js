@@ -47,6 +47,7 @@ Promise.all([
 });
 
 //  Dom events
+//  Update base currency
 const selectBase = document.querySelector('div.base-bar select');
 selectBase.addEventListener('change', (event) => {
 	baseCurrency = event.target.value;
@@ -59,6 +60,7 @@ selectBase.addEventListener('change', (event) => {
 	}).catch((e) => console.log(e));
 });
 
+//  Make exchange
 const selectExch = document.querySelectorAll('div.exchange-box select');
 const inputExchange = document.querySelectorAll('div.exchange-box input');
 
@@ -88,16 +90,30 @@ selectExch[1].addEventListener('change', () => {
 	convert(inputExchange[0].value, 1);
 });
 
-inputExchange[0].addEventListener('keyup', () => {
-	convert(inputExchange[0].value, 1);
+inputExchange[0].addEventListener('keyup', (event) => {
+	convert(event.target.value, 1);
 });
-inputExchange[0].addEventListener('change', () => {
-	convert(inputExchange[0].value, 1);
+inputExchange[0].addEventListener('change', (event) => {
+	convert(event.target.value, 1);
 });
 
-inputExchange[1].addEventListener('keyup', () => {
-	convert(inputExchange[1].value, 0);
+inputExchange[1].addEventListener('keyup', (event) => {
+	convert(event.target.value, 0);
 });
-inputExchange[1].addEventListener('change', () => {
-	convert(inputExchange[1].value, 0);
+inputExchange[1].addEventListener('change', (event) => {
+	convert(event.target.value, 0);
+});
+
+//  Search card
+const searchInput = document.querySelector('.search-box input');
+searchInput.addEventListener('keyup', (event) => {
+	const cards = document.querySelectorAll('.middle-container div.card');
+	cards.forEach((cardDiv) => {
+		const cardName = cardDiv.querySelector('.card-name p').textContent.toLowerCase();
+		const cardID = cardDiv.querySelector('.card-name h2').textContent.toLowerCase();
+		const cardVal = cardDiv.querySelector('.card-value h3').textContent.toLowerCase();
+		const searchText = event.target.value.toLowerCase();
+		if (cardName.includes(searchText) || cardID.includes(searchText) || cardVal.includes(searchText)) cardDiv.classList.remove('d-none');
+		else cardDiv.classList.add('d-none');
+	});
 });
