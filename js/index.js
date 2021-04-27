@@ -137,3 +137,23 @@ searchInput.addEventListener('keyup', (event) => {
 		else cardDiv.classList.add('d-none');
 	});
 });
+
+//  Modal event
+const openModalBtn = document.getElementById('open-modal-btn');
+const closeModalBtn = document.getElementById('close-modal-btn');
+const overlay = document.querySelector('.overlay');
+const modal = document.querySelector('.modal');
+
+openModalBtn.addEventListener('click', () => {
+	modal.classList.add('modal-active');
+	overlay.classList.add('overlay-active');
+});
+
+closeModalBtn.addEventListener('click', () => {
+	modal.classList.remove('modal-active');
+	overlay.classList.remove('overlay-active');
+});
+overlay.addEventListener('click', () => {
+	modal.classList.remove('modal-active');
+	overlay.classList.remove('overlay-active');
+});
