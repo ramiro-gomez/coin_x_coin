@@ -49,13 +49,8 @@ Promise.all([
 	cardsList.forEach((card) => {
 		const pushpin = card.querySelector('i.fa-thumbtack');
 		pushpin.addEventListener('click', () => {
-			if (pushpin.classList.contains('pushpin')) {
-				pushpin.classList.remove('pushpin');
-				card.classList.remove('order-priority');
-			} else {
-				pushpin.classList.add('pushpin');
-				card.classList.add('order-priority');
-			}
+			pushpin.classList.toggle('pushpin');
+			card.classList.toggle('order-priority');
 		});
 	});
 
