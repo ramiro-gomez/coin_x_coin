@@ -9,18 +9,18 @@ export class UserInterface {
 			cardDiv.classList.add('card');
 			cardDiv.innerHTML = `
 			<a>
-                <i class="fas fa-thumbtack"></i>
-            </a>
-            <div class="card-name">
-                <h2>${currenciesList[currency].id}</h2>
+				<i class="fas fa-thumbtack"></i>
+			</a>
+			<div class="card-name">
+				<h2>${currenciesList[currency].id}</h2>
 				<div>
 					<p>${currenciesList[currency].name}</p>
 				</div>
-            </div>
-            <div class="card-value">
-                <p>1<span>${currenciesList[currency].id}</span> = </p>
-                <h3>${currenciesList[currency].value}<span>${base}</span></h3>
-            </div>
+			</div>
+			<div class="card-value">
+				<p>1<span>${currenciesList[currency].id}</span> = </p>
+				<h3>${currenciesList[currency].value}<span>${base}</span></h3>
+			</div>
 			`;
 			documentFragment.appendChild(cardDiv);
 		}
@@ -29,8 +29,8 @@ export class UserInterface {
 
 	updateCardsExchanges(exchanges, base) {
 		this.allCurrencies = exchanges;
-		const cards = document.querySelectorAll('.middle-container div.card');
-		cards.forEach((cardDiv) => {
+		const cardsList = document.querySelectorAll('.middle-container div.card');
+		cardsList.forEach((cardDiv) => {
 			const id = cardDiv.querySelector('.card-name h2').innerHTML;
 			cardDiv.querySelector('.card-value').innerHTML = `
 			<p>1<span>${id}</span> = </p>

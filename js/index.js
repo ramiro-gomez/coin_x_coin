@@ -5,6 +5,7 @@ const UI = new UserInterface();
 const handler = new RequestHandler();
 const currenciesList = {};
 let exchangesList;
+let cardsList;
 let baseCurrency = 'ARS'; //  Default base
 
 const twoDecimals = (value) => {
@@ -42,12 +43,35 @@ Promise.all([
 	}
 	UI.showCards(currenciesList, baseCurrency);
 	UI.showOptions(currenciesList, baseCurrency);
+
+	//  Pushpin event
+	cardsList = document.querySelectorAll('.middle-container div.card');
+	cardsList.forEach((card) => {
+		const pushpin = card.querySelector('i.fa-thumbtack');
+		pushpin.addEventListener('click', () => {
+			if (pushpin.classList.contains('pushpin')) {
+				pushpin.classList.remove('pushpin');
+				card.classList.remove('order-priority');
+			} else {
+				pushpin.classList.add('pushpin');
+				card.classList.add('order-priority');
+			}
+		});
+	});
+
+	//  Pushpin USD, EUR and GBP by default
+	cardsList.forEach((card) => {
+		const id = card.querySelector('div.card-name h2').textContent;
+		if (id === 'EUR' || id === 'GBP' || id === 'USD') {
+			card.querySelector('i.fa-thumbtack').classList.add('pushpin');
+			card.classList.add('order-priority');
+		}
+	});
 }).catch((error) => {
 	console.log(error);
 });
 
-//  Dom events
-//  Update base currency
+//  Base currency event : Update cards values
 const selectBase = document.querySelector('div.base-bar select');
 selectBase.addEventListener('change', (event) => {
 	baseCurrency = event.target.value;
@@ -60,7 +84,7 @@ selectBase.addEventListener('change', (event) => {
 	}).catch((e) => console.log(e));
 });
 
-//  Make exchange
+//  Exchanges inputs event: Make exchange
 const selectExch = document.querySelectorAll('div.exchange-box select');
 const inputExchange = document.querySelectorAll('div.exchange-box input');
 
@@ -104,16 +128,17 @@ inputExchange[1].addEventListener('change', (event) => {
 	convert(event.target.value, 0);
 });
 
-//  Search card
+//  Search card event
 const searchInput = document.querySelector('.search-box input');
 searchInput.addEventListener('keyup', (event) => {
-	const cards = document.querySelectorAll('.middle-container div.card');
-	cards.forEach((cardDiv) => {
+	const searchText = event.target.value.toLowerCase();
+	cardsList.forEach((cardDiv) => {
 		const cardName = cardDiv.querySelector('.card-name p').textContent.toLowerCase();
 		const cardID = cardDiv.querySelector('.card-name h2').textContent.toLowerCase();
-		const cardVal = cardDiv.querySelector('.card-value h3').textContent.toLowerCase();
-		const searchText = event.target.value.toLowerCase();
-		if (cardName.includes(searchText) || cardID.includes(searchText) || cardVal.includes(searchText)) cardDiv.classList.remove('d-none');
+		//  Remove the text in h3 span
+		const cardVal = parseFloat(cardDiv.querySelector('.card-value h3').textContent).toString();
+		if (cardName.includes(searchText) || cardID.includes(searchText)
+		|| cardVal.includes(searchText)) cardDiv.classList.remove('d-none');
 		else cardDiv.classList.add('d-none');
 	});
 });
