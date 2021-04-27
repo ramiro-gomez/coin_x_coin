@@ -18,19 +18,6 @@
     font-family: 'Noto Sans JP', sans-serif;
 }
 
-body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #b498ff;
-    padding: 1rem;
-}
-
-article{
-    width: 23.4375rem;
-    height: 41.6875rem;
-}
-
 /*                  Modal               */
 .modal {
     position: fixed;
@@ -109,7 +96,6 @@ article{
     align-items: center;
     box-shadow: 0 0.25rem 0.25rem rgba(101, 101, 101, 0.25);
     position: relative; /* Overlaps box-shadow on middle-container */
-    border-radius: 1.25rem 1.25rem 0 0;
 }
 .app-title {
     font-size: 2rem;
@@ -199,7 +185,7 @@ article{
 /*                  Middle               */
 .middle-container{
     width: 100%;
-    height: 27.625rem;
+    height: calc(100vh - 7.8125rem - 6.1875rem);
     background-color: white;
     overflow-y: scroll;
     padding-bottom: 1rem;
@@ -300,7 +286,6 @@ article{
     height: 6.1875rem;
     box-shadow: 0 -0.25rem 0.25rem rgba(101, 101, 101, 0.25);
     position: relative;
-    border-radius: 0 0 1.25rem 1.25rem;
 
     /*       Center elements       */
     display: flex;
@@ -350,4 +335,63 @@ article{
     font-size: 0.625rem;
     color: #a861ff;
     margin-bottom: 0.5rem;
+}
+
+/*                  Semi-responsive               */
+@media (min-width: 430px) {
+    body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #b498ff;
+    }
+    article{
+        width: 23.4375rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .top-container {
+        background-color: var(--violet-1);
+        height: 7.8125rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 0.25rem 0.25rem rgba(101, 101, 101, 0.25);
+        position: relative; /* Overlaps box-shadow on middle-container */
+
+        /* Added */
+        border-radius: 1.25rem 1.25rem 0 0;
+    }
+
+    .middle-container{
+        width: 100%;
+        background-color: white;
+        overflow-y: scroll;
+        padding-bottom: 1rem;
+    
+        /*       Center cards       */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        /* Modified */
+        height: calc(100vh - 7.8125rem - 6.1875rem - 2rem);
+    }
+
+    .bottom-container{
+        background-color: var(--violet-1);
+        width: 100%;
+        height: 6.1875rem;
+        box-shadow: 0 -0.25rem 0.25rem rgba(101, 101, 101, 0.25);
+        position: relative;
+    
+        /*       Center elements       */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        /* Added */
+        border-radius: 0 0 1.25rem 1.25rem;
+    }
 }
