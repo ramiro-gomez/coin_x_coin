@@ -15,7 +15,6 @@
         "no-console": "off",
         "no-iterator": "off",
         "no-restricted-syntax": "off",
-        "import/prefer-default-export": "off",
         "import/extensions": "off",
         "guard-for-in": "off",
         "no-param-reassign": "off",

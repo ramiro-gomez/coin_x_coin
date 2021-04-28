@@ -1,4 +1,4 @@
-export class UserInterface {
+export default class UserInterface {
 	showCards(currenciesList, base) {
 		const documentFragment = new DocumentFragment();
 		const middleElement = document.querySelector('.middle-container');

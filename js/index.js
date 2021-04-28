@@ -1,5 +1,5 @@
-import { UserInterface } from './ui.js';
-import { RequestHandler } from './request_handler.js';
+import UserInterface from './ui.js';
+import RequestHandler from './request_handler.js';
 
 const UI = new UserInterface();
 const handler = new RequestHandler();

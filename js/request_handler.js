@@ -1,4 +1,4 @@
-export class RequestHandler {
+export default class RequestHandler {
 	getCurrencies() {
 		return fetch('https://api.coinbase.com/v2/currencies')
 			.then((res) => res.json()).then((data) => data.data).catch((error) => {
