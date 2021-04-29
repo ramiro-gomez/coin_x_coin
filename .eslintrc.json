@@ -18,7 +18,6 @@
         "import/extensions": "off",
         "guard-for-in": "off",
         "no-param-reassign": "off",
-        "class-methods-use-this": "off",
-        "prefer-destructuring": "off"
+        "class-methods-use-this": "off"
     }
 }

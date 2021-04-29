@@ -29,7 +29,7 @@ Promise.all([
 ]).then((responses) => Promise.all(responses.map((res) => res))).then((data) => {
 	//  Join all the relevant data in currenciesList
 	const coinbaseCurrencies = data[0];
-	exchangesList = data[1];
+	[, exchangesList] = data;
 	for (const currency of coinbaseCurrencies) {
 		//  Avoid metals
 		if (currency.name !== 'Silver (Troy Ounce)' && currency.name !== 'Gold (Troy Ounce)'
