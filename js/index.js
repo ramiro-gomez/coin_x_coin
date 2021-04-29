@@ -1,8 +1,6 @@
 import UserInterface from './ui.js';
 import RequestHandler from './request_handler.js';
 
-const UI = new UserInterface();
-const handler = new RequestHandler();
 const currenciesList = {};
 let exchangesList;
 let cardsList;
@@ -24,8 +22,8 @@ const valueToBase = (val) => {
 };
 
 Promise.all([
-	handler.getCurrencies(),
-	handler.getExchanges(baseCurrency),
+	RequestHandler.getCurrencies(),
+	RequestHandler.getExchanges(baseCurrency),
 ]).then((responses) => Promise.all(responses.map((res) => res))).then((data) => {
 	//  Join all the relevant data in currenciesList
 	const coinbaseCurrencies = data[0];
@@ -41,8 +39,8 @@ Promise.all([
 			};
 		}
 	}
-	UI.showCards(currenciesList, baseCurrency);
-	UI.showOptions(currenciesList, baseCurrency);
+	UserInterface.showCards(currenciesList, baseCurrency);
+	UserInterface.showOptions(currenciesList, baseCurrency);
 
 	//  Pushpin event
 	cardsList = document.querySelectorAll('.middle-container div.card');
@@ -70,12 +68,12 @@ Promise.all([
 const selectBase = document.querySelector('div.base-bar select');
 selectBase.addEventListener('change', (event) => {
 	baseCurrency = event.target.value;
-	handler.getExchanges(baseCurrency).then((exchanges) => {
+	RequestHandler.getExchanges(baseCurrency).then((exchanges) => {
 		const exchangesConverted = {};
 		for (const id of Object.keys(exchanges)) {
 			exchangesConverted[id] = valueToBase(exchanges[id]);
 		}
-		UI.updateCardsExchanges(exchangesConverted, baseCurrency);
+		UserInterface.updateCardsExchanges(exchangesConverted, baseCurrency);
 	}).catch((e) => console.log(e));
 });
 
@@ -100,7 +98,7 @@ const convert = (val, inputTargetNumb) => {
 
 selectExch[0].addEventListener('change', (event) => {
 	//  Get exchange data with current currency for greater exchange accuracy
-	handler.getExchanges(event.target.value).then((res) => {
+	RequestHandler.getExchanges(event.target.value).then((res) => {
 		exchangesList = res;
 		convert(inputExchange[0].value, 1);
 	});

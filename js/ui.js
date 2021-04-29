@@ -1,5 +1,5 @@
 export default class UserInterface {
-	showCards(currenciesList, base) {
+	static showCards(currenciesList, base) {
 		const documentFragment = new DocumentFragment();
 		const middleElement = document.querySelector('.middle-container');
 		for (const currency of Object.keys(currenciesList)) {
@@ -25,7 +25,7 @@ export default class UserInterface {
 		middleElement.appendChild(documentFragment);
 	}
 
-	updateCardsExchanges(exchanges, base) {
+	static updateCardsExchanges(exchanges, base) {
 		const cardsList = document.querySelectorAll('.middle-container div.card');
 		cardsList.forEach((cardDiv) => {
 			const id = cardDiv.querySelector('.card-name h2').innerHTML;
@@ -36,7 +36,7 @@ export default class UserInterface {
 		});
 	}
 
-	showOptions(currenciesList, defaultOption) {
+	static showOptions(currenciesList, defaultOption) {
 		const selectBase = document.querySelector('div.base-bar select');
 		const selectExchange = document.querySelectorAll('div.exchange-box select');
 		const docFragBase = new DocumentFragment();
