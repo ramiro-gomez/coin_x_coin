@@ -4,13 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build-css": "postcss css/style.css --output public/css/style.css",
+    "watch-css": "postcss css/style.css --output public/css/style.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ramiro Gómez",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^10.2.6",
     "eslint": "^7.24.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1"
+    "eslint-plugin-import": "^2.22.1",
+    "postcss": "^8.3.0",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.4"
   }
 }

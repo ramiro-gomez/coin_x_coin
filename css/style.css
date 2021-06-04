@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+
 /*       Variables       */
 :root{
     --violet-1: #4A148C;
@@ -395,3 +398,5 @@
         border-radius: 0 0 1.25rem 1.25rem;
     }
 }
+
+@tailwind utilities;
