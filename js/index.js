@@ -1,3 +1,4 @@
+import Currency from './currency.js';
 import UserInterface from './ui.js';
 import RequestHandler from './request_handler.js';
 
@@ -32,11 +33,8 @@ Promise.all([
 		//  Avoid metals
 		if (currency.name !== 'Silver (Troy Ounce)' && currency.name !== 'Gold (Troy Ounce)'
 		&& currency.name !== 'Palladium' && currency.name !== 'Platinum') {
-			currenciesList[currency.id] = {
-				id: currency.id,
-				name: currency.name,
-				value: valueToBase(exchangesList[currency.id]),
-			};
+			currenciesList[currency.id] = new Currency(currency.id, currency.name,
+				valueToBase(exchangesList[currency.id]));
 		}
 	}
 	UserInterface.showCards(currenciesList, baseCurrency);
