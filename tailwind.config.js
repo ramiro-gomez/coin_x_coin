@@ -1,5 +1,14 @@
 module.exports = {
-	purge: [],
+	purge: {
+		enabled: true,
+		content: [
+			'./*.html',
+			'./js/*.js',
+		],
+		options: {
+			keyframes: true,
+		},
+	},
 	darkMode: false,
 	theme: {
 		fontFamily: {
