@@ -14,10 +14,10 @@
 <body>
     <article>
         <!--        Modal       -->
-        <div class="overlay"></div>
-        <div class="modal">
-            <button id="close-modal-btn">&times;</button>
-            <div>
+        <div class="modal-container">
+            <div class="overlay"></div>
+            <div class="modal">
+                <button id="close-modal-btn">&times;</button>
                 <h3>Information from:</h3>
                 <a href="https://www.coinbase.com/es/" target="_blank">
                     <picture>
@@ -26,15 +26,21 @@
                         <img src="./images/coinbase.jpg">
                     </picture>
                 </a>
+                <p>All currency values shown are purchase prices.</p>
             </div>
-            <p>All currency values shown are purchase prices.</p>
         </div>
 
         <!--        Top         -->
         <section class="top-container">
-        <i class="fas fa-info-circle information-button" id="open-modal-btn"></i>
-        <h1 class="app-title">Coin<span class="f-size-title-s">x</span>Coin</h1>
-        <div class="top-bars">
+            <button class="information-button" type="button">
+                <i class="fas fa-info-circle" id="open-modal-btn"></i>
+            </button>
+            <h1 class="app-title">
+                Coin
+                <span>&times;</span>
+                Coin
+            </h1>
+            <div class="top-bars">
             <div class="search-box">
                 <input type="text" placeholder="Search...">
                 <i class="fas fa-search"></i>

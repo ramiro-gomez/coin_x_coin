@@ -46,7 +46,7 @@ Promise.all([
 		const pushpin = card.querySelector('i.fa-thumbtack');
 		pushpin.addEventListener('click', () => {
 			pushpin.classList.toggle('pushpin');
-			card.classList.toggle('order-priority');
+			card.classList.toggle('order-first');
 		});
 	});
 
@@ -55,7 +55,7 @@ Promise.all([
 		const id = card.querySelector('div.card-name h2').textContent;
 		if (id === 'EUR' || id === 'GBP' || id === 'USD') {
 			card.querySelector('i.fa-thumbtack').classList.add('pushpin');
-			card.classList.add('order-priority');
+			card.classList.add('order-first');
 		}
 	});
 }).catch((error) => {
@@ -129,8 +129,8 @@ searchInput.addEventListener('keyup', (event) => {
 		//  Remove the text in h3 span
 		const cardVal = parseFloat(cardDiv.querySelector('.card-value h3').textContent).toString();
 		if (cardName.includes(searchText) || cardID.includes(searchText)
-		|| cardVal.includes(searchText)) cardDiv.classList.remove('d-none');
-		else cardDiv.classList.add('d-none');
+		|| cardVal.includes(searchText)) cardDiv.classList.remove('hidden');
+		else cardDiv.classList.add('hidden');
 	});
 });
 
