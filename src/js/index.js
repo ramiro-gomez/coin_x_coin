@@ -1,3 +1,4 @@
+import '../css/style.css';
 import Currency from './currency.js';
 import UserInterface from './ui.js';
 import RequestHandler from './request_handler.js';
