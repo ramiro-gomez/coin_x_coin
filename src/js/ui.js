@@ -6,9 +6,9 @@ export default class UserInterface {
 			const cardDiv = document.createElement('div');
 			cardDiv.classList.add('card');
 			cardDiv.innerHTML = `
-			<a>
+			<button type="button">
 				<i class="fas fa-thumbtack"></i>
-			</a>
+			</button>
 			<div class="card-name">
 				<h2>${currenciesList[currency].id}</h2>
 				<p>${currenciesList[currency].name}</p>
