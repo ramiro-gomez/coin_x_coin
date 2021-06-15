@@ -6,9 +6,9 @@ const MinifyJsonPlugin = require('minify-json-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
-	entry: './src/js/index.js',
+	entry: './src/js/App.js',
 	output: {
-		filename: './js/index.js',
+		filename: './js/Appx.js',
 		path: path.resolve(__dirname, 'public'),
 		assetModuleFilename: './[name][ext]',
 	},

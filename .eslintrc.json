@@ -6,17 +6,16 @@
     "extends": [
         "airbnb-base"
     ],
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
         "ecmaVersion": 12
     },
     "rules": {
-        "no-tabs": ["error", { "allowIndentationTabs": true }],
-        "indent": ["error", "tab"],
+        "no-tabs": "off",
+        "indent": ["error", "tab", { "SwitchCase": 1 }],
         "no-console": "off",
-        "no-iterator": "off",
-        "no-restricted-syntax": "off",
-        "import/extensions": "off",
-        "guard-for-in": "off",
+        "lines-between-class-members": "off",
+        "import/no-mutable-exports": "off",
         "no-param-reassign": "off"
     }
 }

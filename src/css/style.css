@@ -16,14 +16,17 @@
 	.modal-container {
 		@apply fixed top-0 bottom-0 left-0 right-0 z-10 flex items-center justify-center pointer-events-none;
 	}
+	.modal-container.open .modal {
+		@apply scale-100 pointer-events-auto;
+	}
+	.modal-container.open .overlay {
+		@apply opacity-100 pointer-events-auto;
+	}
 	.modal {
 		@apply fixed pt-8 pb-4 px-4 bg-lightblue-100 flex flex-col transition-transform
 		duration-200 ease-in-out transform scale-0 w-80 top-2/4 left-2/4
 		-translate-x-2/4 -translate-y-2/4 rounded-2xl;
 		@apply md:bg-lightblue-200;
-	}
-	.modal-active {
-		@apply scale-100 pointer-events-auto;
 	}
 	.modal > button {
 		@apply absolute top-0 right-0 text-base text-white py-2.5 px-3.5 outline-none;
@@ -42,9 +45,6 @@
 	
 	.overlay {
 		@apply fixed w-full h-full bg-overlay opacity-0 transition-opacity duration-200 ease-in-out;
-	}
-	.overlay-active {
-		@apply opacity-100 pointer-events-auto;
 	}
 	
 	/*                  Top               */
