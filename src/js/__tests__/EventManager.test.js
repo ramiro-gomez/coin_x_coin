@@ -277,7 +277,7 @@ describe('#addBaseSelectorEvent', () => {
 		expect(getExchangeRates).toHaveBeenCalledWith('CAD');
 		const currencyListLength = Object.keys(mockCurrencyList.currencies).length;
 		expect(toBase).toHaveBeenCalledTimes(currencyListLength);
-		Object.entries(mockCurrencyList.currencies).forEach(([, currency]) => {
+		Object.values(mockCurrencyList.currencies).forEach((currency) => {
 			expect(currency.price.base).toBe('CAD');
 		});
 		expect.assertions(3 + currencyListLength);

@@ -2,7 +2,7 @@ export default class UserInterface {
 	static showCards(currencyList) {
 		const documentFragment = new DocumentFragment();
 		const middleElement = document.querySelector('.middle-container');
-		Object.keys(currencyList.currencies).forEach((id) => {
+		Object.values(currencyList.currencies).forEach((currency) => {
 			const card = document.createElement('div');
 			card.classList.add('card');
 			card.innerHTML = `
@@ -10,12 +10,12 @@ export default class UserInterface {
 					<i class="fas fa-thumbtack"></i>
 				</button>
 				<div class="card-name">
-					<h2>${currencyList.currencies[id].id}</h2>
-					<p>${currencyList.currencies[id].name}</p>
+					<h2>${currency.id}</h2>
+					<p>${currency.name}</p>
 				</div>
 				<div class="card-value">
-					<p>1<span>${currencyList.currencies[id].id}</span> = </p>
-					<h3>${currencyList.currencies[id].price.value}<span>${currencyList.currencies[id].price.base}</span></h3>
+					<p>1<span>${currency.id}</span> = </p>
+					<h3>${currency.price.value}<span>${currency.price.base}</span></h3>
 				</div>
 			`;
 			documentFragment.appendChild(card);
@@ -58,10 +58,10 @@ export default class UserInterface {
 		const baseSelector = document.querySelector('div.base-bar select');
 		const exchangeSelector = document.querySelectorAll('div.exchange-box select');
 		const baseDocumentFrag = new DocumentFragment();
-		Object.keys(currencyList.currencies).forEach((currency) => {
+		Object.values(currencyList.currencies).forEach((currency) => {
 			const option = document.createElement('option');
-			option.value = currencyList.currencies[currency].id;
-			option.textContent = currencyList.currencies[currency].id;
+			option.value = currency.id;
+			option.textContent = currency.id;
 			baseDocumentFrag.appendChild(option);
 		});
 

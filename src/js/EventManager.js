@@ -97,8 +97,8 @@ export default class EventManager {
 		const baseSelector = document.querySelector('div.base-bar select');
 		baseSelector.addEventListener('change', async () => {
 			const updatedExchangeRates = await RequestHandler.getExchangeRates(baseSelector.value);
-			Object.keys(currencyList.currencies).forEach((id) => {
-				currencyList.currencies[id].updatePrice = {
+			Object.entries(currencyList.currencies).forEach(([id, currency]) => {
+				currency.updatePrice = {
 					value: Conversor.toBase(updatedExchangeRates[id]),
 					base: baseSelector.value,
 				};
