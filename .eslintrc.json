@@ -3,8 +3,10 @@
         "browser": true,
         "es2021": true
     },
+    "plugins": ["jest"],
     "extends": [
-        "airbnb-base"
+        "airbnb-base",
+        "plugin:jest/all"
     ],
     "parser": "@babel/eslint-parser",
     "parserOptions": {
@@ -16,6 +18,9 @@
         "no-console": "off",
         "lines-between-class-members": "off",
         "import/no-mutable-exports": "off",
-        "no-param-reassign": "off"
+        "no-param-reassign": "off",
+        "jest/prefer-expect-assertions": "off",
+        "jest/no-hooks": "off",
+        "jest/no-conditional-expect": "off"
     }
 }

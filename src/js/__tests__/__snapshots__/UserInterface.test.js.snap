@@ -1,0 +1,333 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#showCards should render the cards in the middle-container 1`] = `
+<section
+  class="middle-container"
+>
+  
+        
+  <div
+    class="card"
+  >
+    
+				
+    <button
+      type="button"
+    >
+      
+					
+      <i
+        class="fas fa-thumbtack"
+      />
+      
+				
+    </button>
+    
+				
+    <div
+      class="card-name"
+    >
+      
+					
+      <h2>
+        AED
+      </h2>
+      
+					
+      <p>
+        United Arab Emirates Dirham
+      </p>
+      
+				
+    </div>
+    
+				
+    <div
+      class="card-value"
+    >
+      
+					
+      <p>
+        1
+        <span>
+          AED
+        </span>
+         = 
+      </p>
+      
+					
+      <h3>
+        10
+        <span>
+          ARS
+        </span>
+      </h3>
+      
+				
+    </div>
+    
+			
+  </div>
+  <div
+    class="card"
+  >
+    
+				
+    <button
+      type="button"
+    >
+      
+					
+      <i
+        class="fas fa-thumbtack"
+      />
+      
+				
+    </button>
+    
+				
+    <div
+      class="card-name"
+    >
+      
+					
+      <h2>
+        AFN
+      </h2>
+      
+					
+      <p>
+        Afghan Afghani
+      </p>
+      
+				
+    </div>
+    
+				
+    <div
+      class="card-value"
+    >
+      
+					
+      <p>
+        1
+        <span>
+          AFN
+        </span>
+         = 
+      </p>
+      
+					
+      <h3>
+        25
+        <span>
+          ARS
+        </span>
+      </h3>
+      
+				
+    </div>
+    
+			
+  </div>
+  <div
+    class="card"
+  >
+    
+				
+    <button
+      type="button"
+    >
+      
+					
+      <i
+        class="fas fa-thumbtack"
+      />
+      
+				
+    </button>
+    
+				
+    <div
+      class="card-name"
+    >
+      
+					
+      <h2>
+        ALL
+      </h2>
+      
+					
+      <p>
+        Albanian Lek
+      </p>
+      
+				
+    </div>
+    
+				
+    <div
+      class="card-value"
+    >
+      
+					
+      <p>
+        1
+        <span>
+          ALL
+        </span>
+         = 
+      </p>
+      
+					
+      <h3>
+        5
+        <span>
+          ARS
+        </span>
+      </h3>
+      
+				
+    </div>
+    
+			
+  </div>
+  <div
+    class="card"
+  >
+    
+				
+    <button
+      type="button"
+    >
+      
+					
+      <i
+        class="fas fa-thumbtack"
+      />
+      
+				
+    </button>
+    
+				
+    <div
+      class="card-name"
+    >
+      
+					
+      <h2>
+        AMD
+      </h2>
+      
+					
+      <p>
+        Armenian Dram
+      </p>
+      
+				
+    </div>
+    
+				
+    <div
+      class="card-value"
+    >
+      
+					
+      <p>
+        1
+        <span>
+          AMD
+        </span>
+         = 
+      </p>
+      
+					
+      <h3>
+        30
+        <span>
+          ARS
+        </span>
+      </h3>
+      
+				
+    </div>
+    
+			
+  </div>
+</section>
+`;
+
+exports[`#showOptions should render the options of the base selector and exchange input selector 0 and 1 1`] = `
+<select>
+  <option
+    value="AED"
+  >
+    AED
+  </option>
+  <option
+    value="AFN"
+  >
+    AFN
+  </option>
+  <option
+    value="ALL"
+  >
+    ALL
+  </option>
+  <option
+    value="AMD"
+  >
+    AMD
+  </option>
+</select>
+`;
+
+exports[`#showOptions should render the options of the base selector and exchange input selector 0 and 1 2`] = `
+<select>
+  <option
+    value="AED"
+  >
+    AED
+  </option>
+  <option
+    value="AFN"
+  >
+    AFN
+  </option>
+  <option
+    value="ALL"
+  >
+    ALL
+  </option>
+  <option
+    value="AMD"
+  >
+    AMD
+  </option>
+</select>
+`;
+
+exports[`#showOptions should render the options of the base selector and exchange input selector 0 and 1 3`] = `
+<select>
+  <option
+    value="AED"
+  >
+    AED
+  </option>
+  <option
+    value="AFN"
+  >
+    AFN
+  </option>
+  <option
+    value="ALL"
+  >
+    ALL
+  </option>
+  <option
+    value="AMD"
+  >
+    AMD
+  </option>
+</select>
+`;
