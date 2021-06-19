@@ -108,12 +108,12 @@ describe('#addModalEvent', () => {
 		EventManager.addModalEvent();
 	});
 	it('should call to showModal if the openModalBtn is clicked', () => {
-		const openModalBtn = document.getElementById('open-modal-btn');
+		const openModalBtn = document.getElementById('open-modal-button');
 		openModalBtn.dispatchEvent(new Event('click'));
 		expect(showModal).toHaveBeenCalledTimes(1);
 	});
 	it('should call to hideModal if the closeModalBtn is clicked', () => {
-		const closeModalBtn = document.getElementById('close-modal-btn');
+		const closeModalBtn = document.getElementById('close-modal-button');
 		closeModalBtn.dispatchEvent(new Event('click'));
 		expect(hideModal).toHaveBeenCalledTimes(1);
 	});
@@ -136,7 +136,7 @@ describe('#addPushpinEvent', () => {
 		const cardElements = document.querySelectorAll('.middle-container .card');
 		EventManager.addPushpinEvent(cardElements);
 		cardElements.forEach((card, index) => {
-			const pushpin = card.querySelector('button i');
+			const pushpin = card.querySelector('button');
 			pushpin.dispatchEvent(new Event('click'));
 			expect(toggleCardPushpin).toHaveBeenCalledTimes(index + 1);
 			expect(toggleCardPushpin).toHaveBeenCalledWith(card);

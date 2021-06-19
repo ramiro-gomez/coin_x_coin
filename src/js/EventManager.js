@@ -12,8 +12,8 @@ export default class EventManager {
 	}
 
 	static addModalEvent() {
-		const openModalBtn = document.getElementById('open-modal-btn');
-		const closeModalBtn = document.getElementById('close-modal-btn');
+		const openModalBtn = document.getElementById('open-modal-button');
+		const closeModalBtn = document.getElementById('close-modal-button');
 		const overlay = document.querySelector('.overlay');
 
 		openModalBtn.addEventListener('click', () => UserInterface.showModal());
@@ -23,8 +23,8 @@ export default class EventManager {
 
 	static addPushpinEvent(cardElements) {
 		cardElements.forEach((card) => {
-			const pushpin = card.querySelector('button i');
-			pushpin.addEventListener('click', () => {
+			const pushpinButton = card.querySelector('button');
+			pushpinButton.addEventListener('click', () => {
 				UserInterface.toggleCardPushpin(card);
 			});
 		});
