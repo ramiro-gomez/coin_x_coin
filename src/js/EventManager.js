@@ -37,7 +37,7 @@ export default class EventManager {
 			cardElements.forEach((card) => {
 				const cardName = card.querySelector('.card-name p').textContent.toLowerCase();
 				const cardID = card.querySelector('.card-name h2').textContent.toLowerCase();
-				const cardVal = parseFloat(card.querySelector('.card-value h3').textContent).toString();
+				const cardVal = parseFloat(card.querySelector('.card-price h3').textContent).toString();
 				if (cardName.includes(searchText)
 				|| cardID.includes(searchText)
 				|| cardVal.includes(searchText)) {

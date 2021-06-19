@@ -13,7 +13,7 @@ export default class UserInterface {
 					<h2>${currency.id}</h2>
 					<p>${currency.name}</p>
 				</div>
-				<div class="card-value">
+				<div class="card-price">
 					<p>1<span>${currency.id}</span> = </p>
 					<h3>${currency.price.value}<span>${currency.price.base}</span></h3>
 				</div>
@@ -28,8 +28,8 @@ export default class UserInterface {
 		cardElements.forEach((card) => {
 			const id = card.querySelector('.card-name h2').textContent;
 			if (currencyList.currencies[id]) {
-				const priceValue = card.querySelector('.card-value h3');
-				const priceBasis = card.querySelector('.card-value h3 span');
+				const priceValue = card.querySelector('.card-price h3');
+				const priceBasis = card.querySelector('.card-price h3 span');
 				priceValue.childNodes[0].nodeValue = currencyList.currencies[id].price.value;
 				priceBasis.textContent = currencyList.currencies[id].price.base;
 			}

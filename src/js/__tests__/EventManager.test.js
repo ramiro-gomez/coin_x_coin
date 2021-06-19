@@ -35,7 +35,7 @@ const mockCards = `
 			<h2>AED</h2>
 			<p>United Arab Emirates Dirham</p>
 		</div>
-		<div class="card-value">
+		<div class="card-price">
 			<p>1<span>AED</span> = </p>
 			<h3>25.9<span>ARS</span></h3>
 		</div>
@@ -48,7 +48,7 @@ const mockCards = `
 			<h2>AFN</h2>
 			<p>Afghan Afghani</p>
 		</div>
-		<div class="card-value">
+		<div class="card-price">
 			<p>1<span>AFN</span> = </p>
 			<h3>1.21<span>ARS</span></h3>
 		</div>
@@ -61,7 +61,7 @@ const mockCards = `
 			<h2>ALL</h2>
 			<p>Albanian Lek</p>
 		</div>
-		<div class="card-value">
+		<div class="card-price">
 			<p>1<span>ALL</span> = </p>
 			<h3>0.94<span>ARS</span></h3>
 		</div>
@@ -74,7 +74,7 @@ const mockCards = `
 			<h2>AWG</h2>
 			<p>Aruban Florin</p>
 		</div>
-		<div class="card-value">
+		<div class="card-price">
 			<p>1<span>AWG</span> = </p>
 			<h3>3.5<span>ARS</span></h3>
 		</div>

@@ -43,7 +43,7 @@ exports[`#showCards should render the cards in the middle-container 1`] = `
     
 				
     <div
-      class="card-value"
+      class="card-price"
     >
       
 					
@@ -105,7 +105,7 @@ exports[`#showCards should render the cards in the middle-container 1`] = `
     
 				
     <div
-      class="card-value"
+      class="card-price"
     >
       
 					
@@ -167,7 +167,7 @@ exports[`#showCards should render the cards in the middle-container 1`] = `
     
 				
     <div
-      class="card-value"
+      class="card-price"
     >
       
 					
@@ -229,7 +229,7 @@ exports[`#showCards should render the cards in the middle-container 1`] = `
     
 				
     <div
-      class="card-value"
+      class="card-price"
     >
       
 					

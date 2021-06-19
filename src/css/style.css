@@ -128,19 +128,19 @@
 	.card-name p {
 		@apply text-xs text-gray-200 font-bold inline-block mt-1 mb-2;
 	}
-	.card-value {
+	.card-price {
 		@apply self-center ml-auto mr-2 text-right;
 	}
-	.card-value p{
+	.card-price p{
 		@apply text-xs font-medium text-gray-300;
 	}
-	.card-value p span{
+	.card-price p span{
 		@apply text-tiny;
 	}
-	.card-value h3{
+	.card-price h3{
 		@apply text-lg font-medium text-gray-700;
 	}
-	.card-value h3 span{
+	.card-price h3 span{
 		@apply text-sm text-gray-100;
 	}
 
