@@ -1,7 +1,9 @@
 export default class Conversor {
 	static twoDecimals(value) {
 		let converted;
-		if (value < 1) {
+		if (value === 0) {
+			converted = 0;
+		} else if (value < 1) {
 			//  Return the first non-zero decimal and rounded it
 			converted = value.toFixed(1 - Math.floor(Math.log(value) / Math.log(10)));
 		} else {
@@ -28,16 +30,10 @@ export default class Conversor {
 	// 2USD / 0.01 = 200ARS
 	static convertValueOfExchangeInput({ ofInputNumber, withValue, referenceExchangeRate }) {
 		const value = parseFloat(withValue);
-		switch (Number.isNaN(value) || value) {
-			case true:
-				return null;
-			case 0:
-				return 0;
-			default:
-				return (
-					ofInputNumber === 0 ? this.twoDecimals(value * referenceExchangeRate)
-						: this.twoDecimals(value / referenceExchangeRate)
-				);
-		}
+		if (Number.isNaN(value)) return null;
+		return (
+			ofInputNumber === 0 ? this.twoDecimals(value * referenceExchangeRate)
+				: this.twoDecimals(value / referenceExchangeRate)
+		);
 	}
 }

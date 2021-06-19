@@ -13,6 +13,9 @@ describe('#twoDecimals', () => {
 		expect(Conversor.twoDecimals(0.0000446)).toBe(0.000045);
 		expect(Conversor.twoDecimals(0.00008009)).toBe(0.00008);
 	});
+	it('should return 0 if the value is 0', () => {
+		expect(Conversor.twoDecimals(0)).toBe(0);
+	});
 });
 
 describe('#toBase', () => {
@@ -53,8 +56,5 @@ describe('#convertValueOfExchangeInput', () => {
 	});
 	it('should return null if the value is an empty string', () => {
 		expect(Conversor.convertValueOfExchangeInput({ withValue: '' })).toBeNull();
-	});
-	it('should return 0 if the value is 0', () => {
-		expect(Conversor.convertValueOfExchangeInput({ withValue: 0 })).toBe(0);
 	});
 });
