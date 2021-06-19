@@ -18,7 +18,7 @@
         "no-console": "off",
         "lines-between-class-members": "off",
         "import/no-mutable-exports": "off",
-        "no-param-reassign": "off",
+        "no-param-reassign": ["error", { "props": false }],
         "jest/prefer-expect-assertions": "off",
         "jest/no-hooks": "off",
         "jest/no-conditional-expect": "off"
