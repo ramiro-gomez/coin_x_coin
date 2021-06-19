@@ -28,10 +28,10 @@ export default class UserInterface {
 		cardElements.forEach((card) => {
 			const id = card.querySelector('.card-name h2').textContent;
 			if (currencyList.currencies[id]) {
-				const cardPrice = card.querySelector('.card-value h3');
-				cardPrice.innerHTML = `
-					${currencyList.currencies[id].price.value}<span>${currencyList.currencies[id].price.base}</span></h3>
-				`;
+				const priceValue = card.querySelector('.card-value h3');
+				const priceBasis = card.querySelector('.card-value h3 span');
+				priceValue.childNodes[0].nodeValue = currencyList.currencies[id].price.value;
+				priceBasis.textContent = currencyList.currencies[id].price.base;
 			}
 		});
 	}
@@ -61,7 +61,7 @@ export default class UserInterface {
 		Object.keys(currencyList.currencies).forEach((currency) => {
 			const option = document.createElement('option');
 			option.value = currencyList.currencies[currency].id;
-			option.innerHTML = currencyList.currencies[currency].id;
+			option.textContent = currencyList.currencies[currency].id;
 			baseDocumentFrag.appendChild(option);
 		});
 
