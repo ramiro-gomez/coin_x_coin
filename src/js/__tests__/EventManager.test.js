@@ -129,7 +129,7 @@ describe('#addPushpinEvent', () => {
 		document.querySelector('.middle-container').innerHTML = mockCards;
 		toggleCardPushpin.mockClear();
 	});
-	beforeAll(() => {
+	afterAll(() => {
 		document.querySelector('.middle-container').innerHTML = '';
 	});
 	it('should call toggleCardPushpin each time a pushpin of a card is clicked', () => {
@@ -150,7 +150,7 @@ describe('#addSearchCardEvent', () => {
 		document.querySelector('.middle-container').innerHTML = mockCards;
 		toggleCardPushpin.mockClear();
 	});
-	beforeAll(() => {
+	afterAll(() => {
 		document.querySelector('.middle-container').innerHTML = '';
 	});
 	it('should hide the cards with id, name or value that don\'t match the word typed on searchInput', () => {
@@ -186,13 +186,15 @@ describe('#addInputConversionEvent', () => {
 	describe('should call convertValueOfExchangeInput and showValueInExchangeInput', () => {
 		const exchangeInput = document.querySelectorAll('div.exchange-box input');
 		const exchangeSelector = document.querySelectorAll('div.exchange-box select');
-		EventManager.addInputConversionEvent();
+		beforeAll(() => {
+			EventManager.addInputConversionEvent();
+		});
 		beforeEach(() => {
 			convertValueOfExchangeInput.mockClear();
 			showValueInExchangeInput.mockClear();
 			getExchangeRates.mockClear();
 		});
-		beforeAll(() => {
+		afterAll(() => {
 			exchangeInput.forEach((input) => {
 				input.value = '';
 			});
@@ -264,7 +266,7 @@ describe('#addBaseSelectorEvent', () => {
 		getExchangeRates.mockClear();
 		toBase.mockClear();
 	});
-	beforeAll(() => {
+	afterAll(() => {
 		baseSelector.innerHTML = '';
 	});
 	it(`should call getExchangeRates and then update the prices in currencyList with Conversor.toBase

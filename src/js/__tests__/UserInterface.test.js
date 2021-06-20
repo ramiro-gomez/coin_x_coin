@@ -100,7 +100,7 @@ describe('#toggleCardPushpin', () => {
 	beforeEach(() => {
 		document.querySelector('.middle-container').innerHTML = mockCards;
 	});
-	beforeAll(() => {
+	afterAll(() => {
 		document.querySelector('.middle-container').innerHTML = '';
 	});
 	it('should toggle the classes pushpin and order-first of the given card', () => {
@@ -119,7 +119,7 @@ describe('#addDefaultPushpins', () => {
 	beforeEach(() => {
 		document.querySelector('.middle-container').innerHTML = mockCards;
 	});
-	beforeAll(() => {
+	afterAll(() => {
 		document.querySelector('.middle-container').innerHTML = '';
 	});
 	it('should add the pushpin and order-first class to the cards of the indicated currencies', () => {
@@ -174,7 +174,7 @@ describe('#showOptions', () => {
 });
 
 describe('#showValueInExchangeInput', () => {
-	beforeAll(() => {
+	afterAll(() => {
 		document.querySelectorAll('div.exchange-box input').forEach((input) => {
 			input.value = '';
 		});
