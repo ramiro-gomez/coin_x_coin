@@ -183,35 +183,50 @@ describe('#addSearchCardEvent', () => {
 });
 
 describe('#addInputConversionEvent', () => {
+	const exchangeInput = document.querySelectorAll('div.exchange-box input');
+	const exchangeSelector = document.querySelectorAll('div.exchange-box select');
+	beforeEach(() => {
+		convertValueOfExchangeInput.mockClear();
+		showValueInExchangeInput.mockClear();
+		getExchangeRates.mockClear();
+	});
+	afterAll(() => {
+		exchangeInput.forEach((input) => {
+			input.value = '';
+		});
+		exchangeSelector.forEach((selector) => {
+			selector.innerHTML = '';
+		});
+	});
+	it('should call getExchangeRates if the selectors doesn\'t have the same currency', async () => {
+		await EventManager.addInputConversionEvent({
+			selectorsWithSameCurrency: false,
+			defaultExchange0: 'PYG',
+		});
+		expect(getExchangeRates).toHaveBeenCalledTimes(1);
+		expect(getExchangeRates).toHaveBeenCalledWith('PYG');
+	});
 	describe('should call convertValueOfExchangeInput and showValueInExchangeInput', () => {
-		const exchangeInput = document.querySelectorAll('div.exchange-box input');
-		const exchangeSelector = document.querySelectorAll('div.exchange-box select');
+		let mockExchangeRates;
 		beforeAll(async () => {
-			await EventManager.addInputConversionEvent({
-				selectorsWithSameCurrency: false,
-			});
-		});
-		beforeEach(() => {
-			convertValueOfExchangeInput.mockClear();
-			showValueInExchangeInput.mockClear();
-			getExchangeRates.mockClear();
-		});
-		afterAll(() => {
-			exchangeInput.forEach((input) => {
-				input.value = '';
-			});
-			exchangeSelector.forEach((selector) => {
-				selector.innerHTML = '';
+			exchangeInput.forEach((input) => input.replaceWith(input.cloneNode(true)));
+			exchangeSelector.forEach((selector) => selector.replaceWith(selector.cloneNode(true)));
+			mockExchangeRates = await RequestHandler.getExchangeRates();
+			EventManager.addInputConversionEvent({
+				selectorsWithSameCurrency: true,
+				exchangeRates: mockExchangeRates,
 			});
 		});
 		it('on keyup and change event of exchangeInput 0', () => {
 			exchangeInput[0].value = '0.1';
 			['keyup', 'change'].forEach((eventType, index) => {
+				exchangeSelector[1].innerHTML = '<option value="RUB">RUB</option>';
 				exchangeInput[0].dispatchEvent(new Event(eventType));
 				expect(convertValueOfExchangeInput).toHaveBeenCalledTimes(index + 1);
 				expect(convertValueOfExchangeInput).toHaveBeenCalledWith(expect.objectContaining({
 					ofInputNumber: 0,
 					withValue: '0.1',
+					referenceExchangeRate: mockExchangeRates.RUB,
 				}));
 				expect(showValueInExchangeInput).toHaveBeenCalledTimes(index + 1);
 				expect(showValueInExchangeInput).toHaveBeenCalledWith(expect.objectContaining({
@@ -220,6 +235,7 @@ describe('#addInputConversionEvent', () => {
 			});
 		});
 		it('on keyup and change event of exchangeInput 1', () => {
+			exchangeSelector[1].innerHTML = '<option value="INR">INR</option>';
 			exchangeInput[1].value = '10.5';
 			['keyup', 'change'].forEach((eventType, index) => {
 				exchangeInput[1].dispatchEvent(new Event(eventType));
@@ -227,6 +243,7 @@ describe('#addInputConversionEvent', () => {
 				expect(convertValueOfExchangeInput).toHaveBeenCalledWith(expect.objectContaining({
 					ofInputNumber: 1,
 					withValue: '10.5',
+					referenceExchangeRate: mockExchangeRates.INR,
 				}));
 				expect(showValueInExchangeInput).toHaveBeenCalledTimes(index + 1);
 				expect(showValueInExchangeInput).toHaveBeenCalledWith(expect.objectContaining({
