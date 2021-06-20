@@ -4,18 +4,24 @@ import RequestHandler from './RequestHandler';
 import EventManager from './EventManager';
 import CurrencyList from './CurrencyList';
 
-const defaultExchange0 = 'ARS';
-const defaultExchange1 = 'USD';
 const defaultPushpins = ['EUR', 'GBP', 'USD'];
 
 const loadLocalStorage = () => {
-	if (localStorage.getItem('defaultBase')) return localStorage.getItem('defaultBase');
-	localStorage.setItem('defaultBase', 'ARS');
-	return 'ARS';
+	const defaults = {
+		defaultBase: localStorage.getItem('defaultBase') || 'ARS',
+		defaultExchange0: localStorage.getItem('defaultExchange0') || 'ARS',
+		defaultExchange1: localStorage.getItem('defaultExchange1') || 'USD',
+	};
+
+	Object.entries(defaults).forEach(([itemName, itemValue]) => {
+		if (!localStorage.getItem(itemName)) localStorage.setItem(itemName, itemValue);
+	});
+
+	return defaults;
 };
 
 (async () => {
-	const defaultBase = loadLocalStorage();
+	const { defaultBase, defaultExchange0, defaultExchange1 } = loadLocalStorage();
 	const [currencyNames, exchangeRates] = await Promise.all([
 		RequestHandler.getCurrencyNames(),
 		RequestHandler.getExchangeRates(defaultBase),
@@ -41,8 +47,9 @@ const loadLocalStorage = () => {
 		EventManager.addPushpinEvent(cardElements);
 		EventManager.addSearchCardEvent(cardElements);
 		EventManager.addInputConversionEvent({
-			selectorsWithSameCurrency: true,
+			selectorsWithSameCurrency: defaultBase === defaultExchange0,
 			exchangeRates,
+			defaultExchange0,
 		});
 		EventManager.addBaseSelectorEvent(currencyList);
 	});

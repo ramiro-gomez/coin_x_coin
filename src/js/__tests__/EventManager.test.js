@@ -186,8 +186,10 @@ describe('#addInputConversionEvent', () => {
 	describe('should call convertValueOfExchangeInput and showValueInExchangeInput', () => {
 		const exchangeInput = document.querySelectorAll('div.exchange-box input');
 		const exchangeSelector = document.querySelectorAll('div.exchange-box select');
-		beforeAll(() => {
-			EventManager.addInputConversionEvent();
+		beforeAll(async () => {
+			await EventManager.addInputConversionEvent({
+				selectorsWithSameCurrency: false,
+			});
 		});
 		beforeEach(() => {
 			convertValueOfExchangeInput.mockClear();

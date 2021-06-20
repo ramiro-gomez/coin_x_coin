@@ -47,10 +47,12 @@ export default class EventManager {
 		});
 	}
 
-	static async addInputConversionEvent({ selectorsWithSameCurrency, exchangeRates }) {
+	static async addInputConversionEvent({
+		selectorsWithSameCurrency, exchangeRates, defaultExchange0,
+	}) {
 		let exchRates;
 		if (selectorsWithSameCurrency) exchRates = { ...exchangeRates };
-		else exchRates = await RequestHandler.getExchangeRates('ARS');
+		else exchRates = await RequestHandler.getExchangeRates(defaultExchange0);
 		const exchangeSelector = document.querySelectorAll('div.exchange-box select');
 		const exchangeInput = document.querySelectorAll('div.exchange-box input');
 
@@ -76,6 +78,7 @@ export default class EventManager {
 		exchangeSelector.forEach((selector, selectorNumber) => {
 			// For both selectors, the 'change' event converts the value of input 1 to input 2.
 			selector.addEventListener('change', async () => {
+				localStorage.setItem(`defaultExchange${selectorNumber}`, exchangeSelector[selectorNumber].value);
 				if (selectorNumber === 0) {
 					//  Get exchange data of the current currency for greater exchange accuracy
 					exchRates = await RequestHandler.getExchangeRates(exchangeSelector[0].value);
