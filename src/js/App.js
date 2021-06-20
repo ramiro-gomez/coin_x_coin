@@ -4,12 +4,18 @@ import RequestHandler from './RequestHandler';
 import EventManager from './EventManager';
 import CurrencyList from './CurrencyList';
 
-const defaultBase = 'ARS';
 const defaultExchange0 = 'ARS';
 const defaultExchange1 = 'USD';
 const defaultPushpins = ['EUR', 'GBP', 'USD'];
 
+const loadLocalStorage = () => {
+	if (localStorage.getItem('defaultBase')) return localStorage.getItem('defaultBase');
+	localStorage.setItem('defaultBase', 'ARS');
+	return 'ARS';
+};
+
 (async () => {
+	const defaultBase = loadLocalStorage();
 	const [currencyNames, exchangeRates] = await Promise.all([
 		RequestHandler.getCurrencyNames(),
 		RequestHandler.getExchangeRates(defaultBase),
@@ -34,7 +40,10 @@ const defaultPushpins = ['EUR', 'GBP', 'USD'];
 		});
 		EventManager.addPushpinEvent(cardElements);
 		EventManager.addSearchCardEvent(cardElements);
-		EventManager.addInputConversionEvent(exchangeRates);
+		EventManager.addInputConversionEvent({
+			selectorsWithSameCurrency: true,
+			exchangeRates,
+		});
 		EventManager.addBaseSelectorEvent(currencyList);
 	});
 })();

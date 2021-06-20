@@ -47,10 +47,10 @@ export default class EventManager {
 		});
 	}
 
-	static addInputConversionEvent(exchangeRates) {
-		// The information is passed to take advantage that the base selector and
-		// the exchange selector have the same base by default
-		let exchRates = { ...exchangeRates };
+	static async addInputConversionEvent({ selectorsWithSameCurrency, exchangeRates }) {
+		let exchRates;
+		if (selectorsWithSameCurrency) exchRates = { ...exchangeRates };
+		else exchRates = await RequestHandler.getExchangeRates('ARS');
 		const exchangeSelector = document.querySelectorAll('div.exchange-box select');
 		const exchangeInput = document.querySelectorAll('div.exchange-box input');
 
@@ -96,6 +96,7 @@ export default class EventManager {
 	static addBaseSelectorEvent(currencyList) {
 		const baseSelector = document.querySelector('div.base-bar select');
 		baseSelector.addEventListener('change', async () => {
+			localStorage.setItem('defaultBase', baseSelector.value);
 			const updatedExchangeRates = await RequestHandler.getExchangeRates(baseSelector.value);
 			Object.entries(currencyList.currencies).forEach(([id, currency]) => {
 				currency.updatePrice = {
