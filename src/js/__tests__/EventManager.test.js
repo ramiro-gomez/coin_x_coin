@@ -6,11 +6,13 @@ import UserInterface from '../UserInterface';
 import Conversor from '../Conversor';
 import RequestHandler from '../RequestHandler';
 import CurrencyList from '../CurrencyList';
+import LocalSHandler from '../LocalSHandler';
 
 jest.mock('../UserInterface');
 jest.mock('../Conversor');
 jest.mock('../RequestHandler');
 jest.mock('../CurrencyList');
+jest.mock('../LocalSHandler');
 
 const HTML = fs.readFileSync(path.resolve(__dirname, '../../index.html'), 'utf8');
 const DOM = new JSDOM(HTML);
@@ -25,6 +27,9 @@ const showValueInExchangeInput = jest.spyOn(UserInterface, 'showValueInExchangeI
 const toggleCardPushpin = jest.spyOn(UserInterface, 'toggleCardPushpin');
 const showModal = jest.spyOn(UserInterface, 'showModal');
 const hideModal = jest.spyOn(UserInterface, 'hideModal');
+const updateDefaultBase = jest.spyOn(LocalSHandler, 'updateDefaultBase');
+const updateDefaultExchange = jest.spyOn(LocalSHandler, 'updateDefaultExchange');
+const toggleDefaultPushpin = jest.spyOn(LocalSHandler, 'toggleDefaultPushpin');
 
 const mockCards = `
 	<div class="card">
@@ -128,20 +133,24 @@ describe('#addPushpinEvent', () => {
 	beforeEach(() => {
 		document.querySelector('.middle-container').innerHTML = mockCards;
 		toggleCardPushpin.mockClear();
+		toggleDefaultPushpin.mockClear();
 	});
 	afterAll(() => {
 		document.querySelector('.middle-container').innerHTML = '';
 	});
-	it('should call toggleCardPushpin each time a pushpin of a card is clicked', () => {
+	it('should call toggleCardPushpin and toggleDefaultPushpin each time a pushpin of a card is clicked', () => {
 		const cardElements = document.querySelectorAll('.middle-container .card');
 		EventManager.addPushpinEvent(cardElements);
 		cardElements.forEach((card, index) => {
+			const id = card.querySelector('.card-name h2').textContent;
 			const pushpin = card.querySelector('button');
 			pushpin.dispatchEvent(new Event('click'));
 			expect(toggleCardPushpin).toHaveBeenCalledTimes(index + 1);
 			expect(toggleCardPushpin).toHaveBeenCalledWith(card);
+			expect(toggleDefaultPushpin).toHaveBeenCalledTimes(index + 1);
+			expect(toggleDefaultPushpin).toHaveBeenCalledWith(id);
 		});
-		expect.assertions(cardElements.length * 2);
+		expect.assertions(cardElements.length * 4);
 	});
 });
 
@@ -189,6 +198,7 @@ describe('#addInputConversionEvent', () => {
 		convertValueOfExchangeInput.mockClear();
 		showValueInExchangeInput.mockClear();
 		getExchangeRates.mockClear();
+		updateDefaultExchange.mockClear();
 	});
 	afterAll(() => {
 		exchangeInput.forEach((input) => {
@@ -251,25 +261,39 @@ describe('#addInputConversionEvent', () => {
 				}));
 			});
 		});
-		it('on change event of exchangeSelector 0. And also call getExchangeRates', async () => {
+		it('on change event of exchangeSelector 0. And also call updateDefaultExchange and getExchangeRates', async () => {
 			exchangeSelector[0].innerHTML = '<option value="BRL">BRL</option>';
+			exchangeSelector[1].innerHTML = '<option value="MXN">MXN</option>';
 			await exchangeSelector[0].dispatchEvent(new Event('change'));
+			expect(updateDefaultExchange).toHaveBeenCalledTimes(1);
+			expect(updateDefaultExchange).toHaveBeenCalledWith({
+				exchangeNumber: 0,
+				updateTo: 'BRL',
+			});
 			expect(getExchangeRates).toHaveBeenCalledTimes(1);
 			expect(getExchangeRates).toHaveBeenCalledWith('BRL');
 			expect(convertValueOfExchangeInput).toHaveBeenCalledTimes(1);
 			expect(convertValueOfExchangeInput).toHaveBeenCalledWith(expect.objectContaining({
 				ofInputNumber: 0,
+				referenceExchangeRate: mockExchangeRates.MXN,
 			}));
 			expect(showValueInExchangeInput).toHaveBeenCalledTimes(1);
 			expect(showValueInExchangeInput).toHaveBeenCalledWith(expect.objectContaining({
 				showInInputNumber: 1,
 			}));
 		});
-		it('on change event of exchangeSelector 1', () => {
+		it('on change event of exchangeSelector 1. And also call updateDefaultExchange', () => {
+			exchangeSelector[1].innerHTML = '<option value="RUB">RUB</option>';
 			exchangeSelector[1].dispatchEvent(new Event('change'));
+			expect(updateDefaultExchange).toHaveBeenCalledTimes(1);
+			expect(updateDefaultExchange).toHaveBeenCalledWith({
+				exchangeNumber: 1,
+				updateTo: 'RUB',
+			});
 			expect(convertValueOfExchangeInput).toHaveBeenCalledTimes(1);
 			expect(convertValueOfExchangeInput).toHaveBeenCalledWith(expect.objectContaining({
 				ofInputNumber: 0,
+				referenceExchangeRate: mockExchangeRates.RUB,
 			}));
 			expect(showValueInExchangeInput).toHaveBeenCalledTimes(1);
 			expect(showValueInExchangeInput).toHaveBeenCalledWith(expect.objectContaining({
@@ -288,12 +312,14 @@ describe('#addBaseSelectorEvent', () => {
 	afterAll(() => {
 		baseSelector.innerHTML = '';
 	});
-	it(`should call getExchangeRates and then update the prices in currencyList with Conversor.toBase
-	and then call updateCardPrices`, async () => {
+	it(`should call updateDefaultBase and getExchangeRates, then update the prices in
+	currencyList with Conversor.toBase and then call updateCardPrices`, async () => {
 		const mockCurrencyList = new CurrencyList();
 		EventManager.addBaseSelectorEvent(mockCurrencyList);
 		baseSelector.innerHTML = '<option value="CAD">CAD</option>';
 		await baseSelector.dispatchEvent(new Event('change'));
+		expect(updateDefaultBase).toHaveBeenCalledTimes(1);
+		expect(updateDefaultBase).toHaveBeenCalledWith('CAD');
 		expect(getExchangeRates).toHaveBeenCalledTimes(1);
 		expect(getExchangeRates).toHaveBeenCalledWith('CAD');
 		const currencyListLength = Object.keys(mockCurrencyList.currencies).length;
@@ -301,6 +327,6 @@ describe('#addBaseSelectorEvent', () => {
 		Object.values(mockCurrencyList.currencies).forEach((currency) => {
 			expect(currency.price.base).toBe('CAD');
 		});
-		expect.assertions(3 + currencyListLength);
+		expect.assertions(5 + currencyListLength);
 	});
 });

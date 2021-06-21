@@ -1,6 +1,7 @@
 import UserInterface from './UserInterface';
 import Conversor from './Conversor';
 import RequestHandler from './RequestHandler';
+import LocalSHandler from './LocalSHandler';
 
 export default class EventManager {
 	static docReady(fn) {
@@ -26,6 +27,8 @@ export default class EventManager {
 			const pushpinButton = card.querySelector('button');
 			pushpinButton.addEventListener('click', () => {
 				UserInterface.toggleCardPushpin(card);
+				const id = card.querySelector('.card-name h2').textContent;
+				LocalSHandler.toggleDefaultPushpin(id);
 			});
 		});
 	}
@@ -78,7 +81,10 @@ export default class EventManager {
 		exchangeSelector.forEach((selector, selectorNumber) => {
 			// For both selectors, the 'change' event converts the value of input 1 to input 2.
 			selector.addEventListener('change', async () => {
-				localStorage.setItem(`defaultExchange${selectorNumber}`, exchangeSelector[selectorNumber].value);
+				LocalSHandler.updateDefaultExchange({
+					exchangeNumber: selectorNumber,
+					updateTo: selector.value,
+				});
 				if (selectorNumber === 0) {
 					//  Get exchange data of the current currency for greater exchange accuracy
 					exchRates = await RequestHandler.getExchangeRates(exchangeSelector[0].value);
@@ -99,7 +105,7 @@ export default class EventManager {
 	static addBaseSelectorEvent(currencyList) {
 		const baseSelector = document.querySelector('div.base-bar select');
 		baseSelector.addEventListener('change', async () => {
-			localStorage.setItem('defaultBase', baseSelector.value);
+			LocalSHandler.updateDefaultBase(baseSelector.value);
 			const updatedExchangeRates = await RequestHandler.getExchangeRates(baseSelector.value);
 			Object.entries(currencyList.currencies).forEach(([id, currency]) => {
 				currency.updatePrice = {
