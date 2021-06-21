@@ -27,9 +27,9 @@ const showValueInExchangeInput = jest.spyOn(UserInterface, 'showValueInExchangeI
 const toggleCardPushpin = jest.spyOn(UserInterface, 'toggleCardPushpin');
 const showModal = jest.spyOn(UserInterface, 'showModal');
 const hideModal = jest.spyOn(UserInterface, 'hideModal');
-const updateDefaultBase = jest.spyOn(LocalSHandler, 'updateDefaultBase');
-const updateDefaultExchange = jest.spyOn(LocalSHandler, 'updateDefaultExchange');
-const toggleDefaultPushpin = jest.spyOn(LocalSHandler, 'toggleDefaultPushpin');
+const updatesavedBase = jest.spyOn(LocalSHandler, 'updateSavedBase');
+const updatesavedExchange = jest.spyOn(LocalSHandler, 'updateSavedExchange');
+const toggleSavedPushpin = jest.spyOn(LocalSHandler, 'toggleSavedPushpin');
 
 const mockCards = `
 	<div class="card">
@@ -133,12 +133,12 @@ describe('#addPushpinEvent', () => {
 	beforeEach(() => {
 		document.querySelector('.middle-container').innerHTML = mockCards;
 		toggleCardPushpin.mockClear();
-		toggleDefaultPushpin.mockClear();
+		toggleSavedPushpin.mockClear();
 	});
 	afterAll(() => {
 		document.querySelector('.middle-container').innerHTML = '';
 	});
-	it('should call toggleCardPushpin and toggleDefaultPushpin each time a pushpin of a card is clicked', () => {
+	it('should call toggleCardPushpin and toggleSavedPushpin each time a pushpin of a card is clicked', () => {
 		const cardElements = document.querySelectorAll('.middle-container .card');
 		EventManager.addPushpinEvent(cardElements);
 		cardElements.forEach((card, index) => {
@@ -147,8 +147,8 @@ describe('#addPushpinEvent', () => {
 			pushpin.dispatchEvent(new Event('click'));
 			expect(toggleCardPushpin).toHaveBeenCalledTimes(index + 1);
 			expect(toggleCardPushpin).toHaveBeenCalledWith(card);
-			expect(toggleDefaultPushpin).toHaveBeenCalledTimes(index + 1);
-			expect(toggleDefaultPushpin).toHaveBeenCalledWith(id);
+			expect(toggleSavedPushpin).toHaveBeenCalledTimes(index + 1);
+			expect(toggleSavedPushpin).toHaveBeenCalledWith(id);
 		});
 		expect.assertions(cardElements.length * 4);
 	});
@@ -198,7 +198,7 @@ describe('#addInputConversionEvent', () => {
 		convertValueOfExchangeInput.mockClear();
 		showValueInExchangeInput.mockClear();
 		getExchangeRates.mockClear();
-		updateDefaultExchange.mockClear();
+		updatesavedExchange.mockClear();
 	});
 	afterAll(() => {
 		exchangeInput.forEach((input) => {
@@ -211,7 +211,7 @@ describe('#addInputConversionEvent', () => {
 	it('should call getExchangeRates if the selectors doesn\'t have the same currency', async () => {
 		await EventManager.addInputConversionEvent({
 			selectorsWithSameCurrency: false,
-			defaultExchange0: 'PYG',
+			savedExchange0: 'PYG',
 		});
 		expect(getExchangeRates).toHaveBeenCalledTimes(1);
 		expect(getExchangeRates).toHaveBeenCalledWith('PYG');
@@ -261,12 +261,12 @@ describe('#addInputConversionEvent', () => {
 				}));
 			});
 		});
-		it('on change event of exchangeSelector 0. And also call updateDefaultExchange and getExchangeRates', async () => {
+		it('on change event of exchangeSelector 0. And also call updatesavedExchange and getExchangeRates', async () => {
 			exchangeSelector[0].innerHTML = '<option value="BRL">BRL</option>';
 			exchangeSelector[1].innerHTML = '<option value="MXN">MXN</option>';
 			await exchangeSelector[0].dispatchEvent(new Event('change'));
-			expect(updateDefaultExchange).toHaveBeenCalledTimes(1);
-			expect(updateDefaultExchange).toHaveBeenCalledWith({
+			expect(updatesavedExchange).toHaveBeenCalledTimes(1);
+			expect(updatesavedExchange).toHaveBeenCalledWith({
 				exchangeNumber: 0,
 				updateTo: 'BRL',
 			});
@@ -282,11 +282,11 @@ describe('#addInputConversionEvent', () => {
 				showInInputNumber: 1,
 			}));
 		});
-		it('on change event of exchangeSelector 1. And also call updateDefaultExchange', () => {
+		it('on change event of exchangeSelector 1. And also call updatesavedExchange', () => {
 			exchangeSelector[1].innerHTML = '<option value="RUB">RUB</option>';
 			exchangeSelector[1].dispatchEvent(new Event('change'));
-			expect(updateDefaultExchange).toHaveBeenCalledTimes(1);
-			expect(updateDefaultExchange).toHaveBeenCalledWith({
+			expect(updatesavedExchange).toHaveBeenCalledTimes(1);
+			expect(updatesavedExchange).toHaveBeenCalledWith({
 				exchangeNumber: 1,
 				updateTo: 'RUB',
 			});
@@ -312,14 +312,14 @@ describe('#addBaseSelectorEvent', () => {
 	afterAll(() => {
 		baseSelector.innerHTML = '';
 	});
-	it(`should call updateDefaultBase and getExchangeRates, then update the prices in
+	it(`should call updatesavedBase and getExchangeRates, then update the prices in
 	currencyList with Conversor.toBase and then call updateCardPrices`, async () => {
 		const mockCurrencyList = new CurrencyList();
 		EventManager.addBaseSelectorEvent(mockCurrencyList);
 		baseSelector.innerHTML = '<option value="CAD">CAD</option>';
 		await baseSelector.dispatchEvent(new Event('change'));
-		expect(updateDefaultBase).toHaveBeenCalledTimes(1);
-		expect(updateDefaultBase).toHaveBeenCalledWith('CAD');
+		expect(updatesavedBase).toHaveBeenCalledTimes(1);
+		expect(updatesavedBase).toHaveBeenCalledWith('CAD');
 		expect(getExchangeRates).toHaveBeenCalledTimes(1);
 		expect(getExchangeRates).toHaveBeenCalledWith('CAD');
 		const currencyListLength = Object.keys(mockCurrencyList.currencies).length;

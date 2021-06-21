@@ -115,7 +115,7 @@ describe('#toggleCardPushpin', () => {
 	});
 });
 
-describe('#addDefaultPushpins', () => {
+describe('#addsavedPushpins', () => {
 	beforeEach(() => {
 		document.querySelector('.middle-container').innerHTML = mockCards;
 	});
@@ -123,16 +123,16 @@ describe('#addDefaultPushpins', () => {
 		document.querySelector('.middle-container').innerHTML = '';
 	});
 	it('should add the pushpin and order-first class to the cards of the indicated currencies', () => {
-		const mockDefaultPushpins = ['AFN', 'ALL'];
+		const mocksavedPushpins = ['AFN', 'ALL'];
 		const cardElements = document.querySelectorAll('.middle-container div.card');
-		UserInterface.addDefaultPushpins({
+		UserInterface.addsavedPushpins({
 			toCardElements: cardElements,
-			defaultPushpins: mockDefaultPushpins,
+			savedPushpins: mocksavedPushpins,
 		});
 		cardElements.forEach((card) => {
 			const id = card.querySelector('div.card-name h2').textContent;
 			const pushpinIcon = card.querySelector('button i');
-			if (mockDefaultPushpins.includes(id)) {
+			if (mocksavedPushpins.includes(id)) {
 				expect(pushpinIcon.classList.contains('pushpin')).toBeTruthy();
 				expect(card.classList.contains('order-first')).toBeTruthy();
 			} else {
@@ -158,14 +158,14 @@ describe('#showOptions', () => {
 		expect(exchangeSelector[0]).toMatchSnapshot();
 		expect(exchangeSelector[1]).toMatchSnapshot();
 	});
-	it('should select the default option of the base selector and exchange input selector 0 and 1', () => {
+	it('should select the saved option of the base selector and exchange input selector 0 and 1', () => {
 		const baseSelector = document.querySelector('div.base-bar select');
 		const exchangeSelector = document.querySelectorAll('div.exchange-box select');
 		UserInterface.showOptions({
 			currencyList: mockCurrencyList,
-			defaultBase: 'AFN',
-			defaultExchange0: 'ALL',
-			defaultExchange1: 'AMD',
+			savedBase: 'AFN',
+			savedExchange0: 'ALL',
+			savedExchange1: 'AMD',
 		});
 		expect(baseSelector.value).toBe('AFN');
 		expect(exchangeSelector[0].value).toBe('ALL');

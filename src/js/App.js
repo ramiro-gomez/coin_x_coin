@@ -7,36 +7,36 @@ import LocalSHandler from './LocalSHandler';
 
 (async () => {
 	const {
-		defaultBase, defaultExchange0, defaultExchange1, defaultPushpins,
-	} = LocalSHandler.loadDefaults();
+		savedBase, savedExchange0, savedExchange1, savedPushpins,
+	} = LocalSHandler.loadStorage();
 	const [currencyNames, exchangeRates] = await Promise.all([
 		RequestHandler.getCurrencyNames(),
-		RequestHandler.getExchangeRates(defaultBase),
+		RequestHandler.getExchangeRates(savedBase),
 	]);
 	const currencyList = new CurrencyList({
 		currencyNames,
 		exchangeRates,
-		base: defaultBase,
+		base: savedBase,
 	});
 	EventManager.docReady(() => {
 		UserInterface.showCards(currencyList);
 		UserInterface.showOptions({
 			currencyList,
-			defaultBase,
-			defaultExchange0,
-			defaultExchange1,
+			savedBase,
+			savedExchange0,
+			savedExchange1,
 		});
 		const cardElements = document.querySelectorAll('.middle-container > div.card');
-		UserInterface.addDefaultPushpins({
+		UserInterface.addsavedPushpins({
 			toCardElements: cardElements,
-			defaultPushpins,
+			savedPushpins,
 		});
 		EventManager.addPushpinEvent(cardElements);
 		EventManager.addSearchCardEvent(cardElements);
 		EventManager.addInputConversionEvent({
-			selectorsWithSameCurrency: defaultBase === defaultExchange0,
+			selectorsWithSameCurrency: savedBase === savedExchange0,
 			exchangeRates,
-			defaultExchange0,
+			savedExchange0,
 		});
 		EventManager.addBaseSelectorEvent(currencyList);
 	});

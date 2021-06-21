@@ -42,10 +42,10 @@ export default class UserInterface {
 		card.classList.toggle('order-first');
 	}
 
-	static addDefaultPushpins = ({ toCardElements, defaultPushpins }) => {
+	static addsavedPushpins = ({ toCardElements, savedPushpins }) => {
 		toCardElements.forEach((card) => {
 			const id = card.querySelector('div.card-name h2').textContent;
-			if (defaultPushpins.includes(id)) {
+			if (savedPushpins.includes(id)) {
 				card.querySelector('i.fa-thumbtack').classList.add('pushpin');
 				card.classList.add('order-first');
 			}
@@ -53,7 +53,7 @@ export default class UserInterface {
 	}
 
 	static showOptions({
-		currencyList, defaultBase, defaultExchange0, defaultExchange1,
+		currencyList, savedBase, savedExchange0, savedExchange1,
 	}) {
 		const baseSelector = document.querySelector('div.base-bar select');
 		const exchangeSelector = document.querySelectorAll('div.exchange-box select');
@@ -68,9 +68,9 @@ export default class UserInterface {
 		const exchangeDocumentFrag0 = baseDocumentFrag.cloneNode(true);
 		const exchangeDocumentFrag1 = baseDocumentFrag.cloneNode(true);
 
-		if (defaultBase) baseDocumentFrag.querySelector(`option[value=${defaultBase}]`).selected = true;
-		if (defaultExchange0) exchangeDocumentFrag0.querySelector(`option[value=${defaultExchange0}]`).selected = true;
-		if (defaultExchange1) exchangeDocumentFrag1.querySelector(`option[value=${defaultExchange1}]`).selected = true;
+		if (savedBase) baseDocumentFrag.querySelector(`option[value=${savedBase}]`).selected = true;
+		if (savedExchange0) exchangeDocumentFrag0.querySelector(`option[value=${savedExchange0}]`).selected = true;
+		if (savedExchange1) exchangeDocumentFrag1.querySelector(`option[value=${savedExchange1}]`).selected = true;
 
 		baseSelector.appendChild(baseDocumentFrag);
 		exchangeSelector[0].appendChild(exchangeDocumentFrag0);

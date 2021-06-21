@@ -1,85 +1,85 @@
 import LocalSHandler from '../LocalSHandler';
 
-describe('#loadDefaults', () => {
+describe('#loadStorage', () => {
 	beforeEach(() => {
 		localStorage.clear();
 	});
-	it('should return the defaults: base, bases of exchange and pushpins in localStorage', () => {
-		localStorage.setItem('defaultBase', JSON.stringify('BRL'));
-		localStorage.setItem('defaultExchange0', JSON.stringify('CLP'));
-		localStorage.setItem('defaultExchange1', JSON.stringify('MXN'));
-		localStorage.setItem('defaultPushpins', JSON.stringify(['UYU', 'PEN', 'BOB']));
+	it('should return the saved: base, bases of exchange and pushpins in localStorage', () => {
+		localStorage.setItem('savedBase', JSON.stringify('BRL'));
+		localStorage.setItem('savedExchange0', JSON.stringify('CLP'));
+		localStorage.setItem('savedExchange1', JSON.stringify('MXN'));
+		localStorage.setItem('savedPushpins', JSON.stringify(['UYU', 'PEN', 'BOB']));
 		const {
-			defaultBase, defaultExchange0, defaultExchange1, defaultPushpins,
-		} = LocalSHandler.loadDefaults();
-		expect(defaultBase).toBe('BRL');
-		expect(defaultExchange0).toBe('CLP');
-		expect(defaultExchange1).toBe('MXN');
-		expect(defaultPushpins).toStrictEqual(['UYU', 'PEN', 'BOB']);
+			savedBase, savedExchange0, savedExchange1, savedPushpins,
+		} = LocalSHandler.loadStorage();
+		expect(savedBase).toBe('BRL');
+		expect(savedExchange0).toBe('CLP');
+		expect(savedExchange1).toBe('MXN');
+		expect(savedPushpins).toStrictEqual(['UYU', 'PEN', 'BOB']);
 	});
-	it('should set defaults in localStorage if there are no defaults saved', () => {
+	it('should set default values localStorage if there are no saved', () => {
 		const {
-			defaultBase, defaultExchange0, defaultExchange1, defaultPushpins,
-		} = LocalSHandler.loadDefaults();
-		expect(typeof defaultBase).toBe('string');
-		expect(typeof defaultExchange0).toBe('string');
-		expect(typeof defaultExchange1).toBe('string');
-		expect(Array.isArray(defaultPushpins)).toBeTruthy();
-		expect(JSON.parse(localStorage.getItem('defaultBase'))).toBe(defaultBase);
-		expect(JSON.parse(localStorage.getItem('defaultExchange0'))).toBe(defaultExchange0);
-		expect(JSON.parse(localStorage.getItem('defaultExchange1'))).toBe(defaultExchange1);
-		expect(JSON.parse(localStorage.getItem('defaultPushpins'))).toStrictEqual(defaultPushpins);
+			savedBase, savedExchange0, savedExchange1, savedPushpins,
+		} = LocalSHandler.loadStorage();
+		expect(typeof savedBase).toBe('string');
+		expect(typeof savedExchange0).toBe('string');
+		expect(typeof savedExchange1).toBe('string');
+		expect(Array.isArray(savedPushpins)).toBeTruthy();
+		expect(JSON.parse(localStorage.getItem('savedBase'))).toBe(savedBase);
+		expect(JSON.parse(localStorage.getItem('savedExchange0'))).toBe(savedExchange0);
+		expect(JSON.parse(localStorage.getItem('savedExchange1'))).toBe(savedExchange1);
+		expect(JSON.parse(localStorage.getItem('savedPushpins'))).toStrictEqual(savedPushpins);
 	});
 });
 
-describe('#updateDefaultBase', () => {
+describe('#updatesavedBase', () => {
 	beforeEach(() => {
 		localStorage.clear();
 	});
-	it('should update defaultBase in localStorage', () => {
-		LocalSHandler.updateDefaultBase('COP');
-		expect(JSON.parse(localStorage.getItem('defaultBase'))).toBe('COP');
+	it('should update savedBase in localStorage', () => {
+		LocalSHandler.updateSavedBase('COP');
+		expect(JSON.parse(localStorage.getItem('savedBase'))).toBe('COP');
 	});
 });
 
-describe('#updateDefaultExchange', () => {
+describe('#updatesavedExchange', () => {
 	beforeEach(() => {
 		localStorage.clear();
 	});
-	it('should update defaultExchange0 in localStorage', () => {
-		localStorage.setItem('defaultExchange0', JSON.stringify('ARS'));
-		LocalSHandler.updateDefaultExchange({
+	it('should update savedExchange0 in localStorage', () => {
+		localStorage.setItem('savedExchange0', JSON.stringify('ARS'));
+		LocalSHandler.updateSavedExchange({
 			exchangeNumber: 0,
 			updateTo: 'BOB',
 		});
-		expect(JSON.parse(localStorage.getItem('defaultExchange0'))).toBe('BOB');
+		expect(JSON.parse(localStorage.getItem('savedExchange0'))).toBe('BOB');
 	});
-	it('should update defaultExchange1 in localStorage', () => {
-		localStorage.setItem('defaultExchange1', JSON.stringify('ARS'));
-		LocalSHandler.updateDefaultExchange({
+	it('should update savedExchange1 in localStorage', () => {
+		localStorage.setItem('savedExchange1', JSON.stringify('ARS'));
+		LocalSHandler.updateSavedExchange({
 			exchangeNumber: 1,
 			updateTo: 'VES',
 		});
-		expect(JSON.parse(localStorage.getItem('defaultExchange1'))).toBe('VES');
+		expect(JSON.parse(localStorage.getItem('savedExchange1'))).toBe('VES');
 	});
 });
 
-describe('#toggleDefaultPushpin', () => {
+describe('#toggleSavedPushpin', () => {
 	beforeEach(() => {
 		localStorage.clear();
 	});
-	it('should remove the pushpin from localStorage if it was previously saved in defaultsPushpins', () => {
-		localStorage.setItem('defaultPushpins', JSON.stringify(['GBP', 'CHF']));
-		LocalSHandler.toggleDefaultPushpin('GBP');
-		expect(JSON.parse(localStorage.getItem('defaultPushpins'))).toStrictEqual(['CHF']);
-		LocalSHandler.toggleDefaultPushpin('CHF');
-		expect(JSON.parse(localStorage.getItem('defaultPushpins'))).toStrictEqual([]);
+	it('should remove the pushpin from localStorage if it was previously saved in savedPushpins', () => {
+		localStorage.setItem('savedPushpins', JSON.stringify(['GBP', 'CHF']));
+		LocalSHandler.toggleSavedPushpin('GBP');
+		expect(JSON.parse(localStorage.getItem('savedPushpins'))).toStrictEqual(['CHF']);
+		LocalSHandler.toggleSavedPushpin('CHF');
+		expect(JSON.parse(localStorage.getItem('savedPushpins'))).toStrictEqual([]);
 	});
-	it('should save the pushpin in localStorage if it was not previously saved in defaultsPushpins', () => {
-		localStorage.setItem('defaultPushpins', JSON.stringify([]));
-		LocalSHandler.toggleDefaultPushpin('GBP');
-		expect(JSON.parse(localStorage.getItem('defaultPushpins'))).toStrictEqual(['GBP']);
-		LocalSHandler.toggleDefaultPushpin('CHF');
-		expect(JSON.parse(localStorage.getItem('defaultPushpins'))).toStrictEqual(['GBP', 'CHF']);
+	it('should save the pushpin in localStorage if it was not previously saved in savedPushpins', () => {
+		localStorage.setItem('savedPushpins', JSON.stringify([]));
+		LocalSHandler.toggleSavedPushpin('GBP');
+		expect(JSON.parse(localStorage.getItem('savedPushpins'))).toStrictEqual(['GBP']);
+		LocalSHandler.toggleSavedPushpin('CHF');
+		expect(JSON.parse(localStorage.getItem('savedPushpins'))).toStrictEqual(['GBP', 'CHF']);
 	});
 });

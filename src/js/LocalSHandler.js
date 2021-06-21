@@ -1,32 +1,32 @@
 export default class LocalSHandler {
-	static loadDefaults() {
-		const defaults = {
-			defaultBase: JSON.parse(localStorage.getItem('defaultBase')) || 'ARS',
-			defaultExchange0: JSON.parse(localStorage.getItem('defaultExchange0')) || 'ARS',
-			defaultExchange1: JSON.parse(localStorage.getItem('defaultExchange1')) || 'USD',
-			defaultPushpins: JSON.parse(localStorage.getItem('defaultPushpins')) || ['EUR', 'GBP', 'USD'],
+	static loadStorage() {
+		const saved = {
+			savedBase: JSON.parse(localStorage.getItem('savedBase')) || 'ARS',
+			savedExchange0: JSON.parse(localStorage.getItem('savedExchange0')) || 'ARS',
+			savedExchange1: JSON.parse(localStorage.getItem('savedExchange1')) || 'USD',
+			savedPushpins: JSON.parse(localStorage.getItem('savedPushpins')) || ['EUR', 'GBP', 'USD'],
 		};
-		Object.entries(defaults).forEach(([itemName, itemValue]) => {
+		Object.entries(saved).forEach(([itemName, itemValue]) => {
 			if (!localStorage.getItem(itemName)) {
 				localStorage.setItem(itemName, JSON.stringify(itemValue));
 			}
 		});
-		return defaults;
+		return saved;
 	}
 
-	static updateDefaultBase(base) {
-		localStorage.setItem('defaultBase', JSON.stringify(base));
+	static updateSavedBase(base) {
+		localStorage.setItem('savedBase', JSON.stringify(base));
 	}
 
-	static updateDefaultExchange({ exchangeNumber, updateTo }) {
-		localStorage.setItem(`defaultExchange${exchangeNumber}`, JSON.stringify(updateTo));
+	static updateSavedExchange({ exchangeNumber, updateTo }) {
+		localStorage.setItem(`savedExchange${exchangeNumber}`, JSON.stringify(updateTo));
 	}
 
-	static toggleDefaultPushpin(id) {
-		const defaultPushpins = JSON.parse(localStorage.getItem('defaultPushpins'));
-		const idPosition = defaultPushpins.indexOf(id);
-		if (idPosition >= 0) defaultPushpins.splice(idPosition, 1);
-		else defaultPushpins.push(id);
-		localStorage.setItem('defaultPushpins', JSON.stringify(defaultPushpins));
+	static toggleSavedPushpin(id) {
+		const savedPushpins = JSON.parse(localStorage.getItem('savedPushpins'));
+		const idPosition = savedPushpins.indexOf(id);
+		if (idPosition >= 0) savedPushpins.splice(idPosition, 1);
+		else savedPushpins.push(id);
+		localStorage.setItem('savedPushpins', JSON.stringify(savedPushpins));
 	}
 }
