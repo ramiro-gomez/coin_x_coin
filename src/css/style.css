@@ -4,17 +4,17 @@
 
 @layer base {
 	body {
-		@apply lg:flex lg:items-center lg:justify-center lg:bg-violet-100;
+		@apply lg:bg-violet-100;
 	}
 	article {
-		@apply lg:w-96 lg:my-4;
+		@apply lg:w-96 lg:absolute lg:top-1/2 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2;
 	}
 }
 
 @layer components {
 	/*                  Modal               */
 	.modal-container {
-		@apply fixed top-0 bottom-0 left-0 right-0 z-10 flex items-center justify-center pointer-events-none;
+		@apply fixed top-0 bottom-0 left-0 right-0 z-10 flex items-center justify-center gap-y-2 pointer-events-none;
 	}
 	.modal-container.open .modal {
 		@apply scale-100 pointer-events-auto;
@@ -24,8 +24,8 @@
 	}
 	.modal {
 		@apply fixed pt-8 pb-4 px-4 bg-lightblue-100 flex flex-col transition-transform
-		duration-200 ease-in-out transform scale-0 w-80 top-2/4 left-2/4
-		-translate-x-2/4 -translate-y-2/4 rounded-2xl;
+		duration-200 ease-in-out transform scale-0 w-80 top-1/2 left-1/2
+		-translate-x-1/2 -translate-y-1/2 rounded-2xl;
 		@apply md:bg-lightblue-200;
 	}
 	.modal > button {
@@ -101,7 +101,7 @@
 		}
 	}
 	.middle-container{
-		@apply w-full px-2 bg-white overflow-y-scroll pb-4 flex flex-col items-center;
+		@apply w-full px-2 py-4 bg-white overflow-y-scroll flex flex-col items-center gap-y-4;
 		height: calc(100vh - 8rem - 6rem); /*	100vh - topContainerHeight - bottomContainerHeight */
 	}
 
@@ -113,7 +113,7 @@
 	}
 
 	.card {
-		@apply w-full min-h-max-content rounded-lg mt-4 flex items-center transition-opacity duration-1000 ease-out;
+		@apply w-full min-h-max-content rounded-lg flex items-center transition-opacity duration-1000 ease-out;
 		box-shadow: 1px 4px 4px rgba(70, 70, 70, 0.22);
 	}
 	.card button {
@@ -179,7 +179,7 @@
 
 	@media (min-width: 1024px) {
 		.middle-container{
-			height: calc(100vh - 8rem - 6rem - 2rem);
+			height: min(30rem, calc(100vh - 8rem - 6rem - 2rem));
 		}
 	}
 }

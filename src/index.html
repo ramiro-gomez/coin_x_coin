@@ -19,24 +19,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+	<!--        Modal       -->
+	<div class="modal-container">
+		<div class="overlay"></div>
+		<div class="modal">
+			<button id="close-modal-button">&times;</button>
+			<h3>Information from:</h3>
+			<a href="https://www.coinbase.com/es/" target="_blank" rel="noreferrer">
+				<picture>
+					<source srcset="./assets/images/coinbase.webp" type="image/webp">
+					<source srcset="./assets/images/coinbase.jpg" type="image/jpeg"> 
+					<img src="./assets/images/coinbase.jpg" alt="CoinBase">
+				</picture>
+			</a>
+			<p>All currency values shown are purchase prices.</p>
+		</div>
+	</div>
+	<!--        App       -->
     <article>
-        <!--        Modal       -->
-        <div class="modal-container">
-            <div class="overlay"></div>
-            <div class="modal">
-                <button id="close-modal-button">&times;</button>
-                <h3>Information from:</h3>
-                <a href="https://www.coinbase.com/es/" target="_blank" rel="noreferrer">
-                    <picture>
-                        <source srcset="./assets/images/coinbase.webp" type="image/webp">
-                        <source srcset="./assets/images/coinbase.jpg" type="image/jpeg"> 
-                        <img src="./assets/images/coinbase.jpg" alt="CoinBase">
-                    </picture>
-                </a>
-                <p>All currency values shown are purchase prices.</p>
-            </div>
-        </div>
-
         <!--        Top         -->
         <section class="top-container">
             <button class="information-button" type="button" id="open-modal-button">
