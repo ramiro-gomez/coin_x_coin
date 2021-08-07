@@ -14,7 +14,7 @@
 @layer components {
 	/*                  Modal               */
 	.modal-container {
-		@apply fixed top-0 bottom-0 left-0 right-0 z-10 flex items-center justify-center gap-y-2 pointer-events-none;
+		@apply fixed top-0 bottom-0 left-0 right-0 z-10 flex items-center justify-center pointer-events-none;
 	}
 	.modal-container.open .modal {
 		@apply scale-100 pointer-events-auto;
@@ -101,7 +101,7 @@
 		}
 	}
 	.middle-container{
-		@apply w-full px-2 py-4 bg-white overflow-y-scroll flex flex-col items-center gap-y-4;
+		@apply w-full px-2 py-4 bg-white overflow-y-scroll grid auto-rows-max gap-y-4;
 		height: calc(100vh - 8rem - 6rem); /*	100vh - topContainerHeight - bottomContainerHeight */
 	}
 
